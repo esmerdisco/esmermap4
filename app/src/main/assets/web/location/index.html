@@ -1,0 +1,72 @@
+<?php
+$NESHAAN_API_KEY = "service.f8331b56f32946cebb464676fdbf124d";
+
+$address = $_GET['address'] ?? '';
+$results = [];
+
+if ($address) {
+    $url = "https://api.neshan.org/v4/geocoding?address=" . urlencode($address);
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Api-Key: $NESHAAN_API_KEY"
+    ]);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $data = json_decode($response, true);
+    if (!empty($data['items'])) {
+        $results = $data['items'];
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تبدیل آدرس به لوکیشن</title>
+
+<style>
+body { font-family: sans-serif; margin: 10px; }
+input, button { width: 100%; padding: 12px; font-size: 16px; }
+button { margin-top: 6px; }
+.card { border: 1px solid #ddd; padding: 10px; margin-top: 10px; border-radius: 6px; }
+iframe { width: 100%; height: 280px; border: 0; margin-top: 8px; }
+a.nav { display: inline-block; margin-top: 6px; background: #1976d2; color: #fff; padding: 6px 10px; text-decoration: none; border-radius: 4px; }
+</style>
+</head>
+
+<body>
+
+<form method="get">
+  <input name="address" placeholder="آدرس را وارد کنید" value="<?= htmlspecialchars($address) ?>">
+  <button>جستجو</button>
+</form>
+
+<?php if ($address && !$results): ?>
+  ❌ نتیجه‌ای یافت نشد
+<?php endif; ?>
+
+<?php foreach ($results as $i => $item): 
+  $lat = $item['location']['latitude'];
+  $lng = $item['location']['longitude'];
+?>
+<div class="card">
+  <b>نتیجه <?= $i + 1 ?></b><br>
+
+  <iframe
+    loading="lazy"
+    src="https://maps.google.com/maps?q=<?= $lat ?>,<?= $lng ?>&z=16&output=embed">
+  </iframe>
+
+  <a class="nav" href="geo:<?= $lat ?>,<?= $lng ?>?q=<?= $lat ?>,<?= $lng ?>">
+    🧭 مسیریابی
+  </a>
+</div>
+<?php endforeach; ?>
+
+</body>
+</html>

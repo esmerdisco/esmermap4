@@ -1,0 +1,36 @@
+[05-Feb-2026 16:41:00 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/_admin_tools/api/config.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 3
+[05-Feb-2026 16:41:00 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/_admin_tools/api/config.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 3
+[05-Feb-2026 16:41:00 Asia/Tehran] PHP Fatal error:  Uncaught Error: Failed opening required '/home/esmerd/public_html/_admin_tools/api/config.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/esmerd/public_html/_admin_tools/admin_create_user.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 3
+[05-Feb-2026 16:41:07 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/_admin_tools/api/config.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 3
+[05-Feb-2026 16:41:07 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/_admin_tools/api/config.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 3
+[05-Feb-2026 16:41:07 Asia/Tehran] PHP Fatal error:  Uncaught Error: Failed opening required '/home/esmerd/public_html/_admin_tools/api/config.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/esmerd/public_html/_admin_tools/admin_create_user.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 3
+[05-Feb-2026 16:42:34 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/_admin_tools/../api/config.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 3
+[05-Feb-2026 16:42:34 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/_admin_tools/../api/config.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 3
+[05-Feb-2026 16:42:34 Asia/Tehran] PHP Fatal error:  Uncaught Error: Failed opening required '/home/esmerd/public_html/_admin_tools/../api/config.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/esmerd/public_html/_admin_tools/admin_create_user.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 3
+[05-Feb-2026 16:42:53 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/_admin_tools/../api/config.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 4
+[05-Feb-2026 16:42:53 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/_admin_tools/../api/config.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 4
+[05-Feb-2026 16:42:53 Asia/Tehran] PHP Fatal error:  Uncaught Error: Failed opening required '/home/esmerd/public_html/_admin_tools/../api/config.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/esmerd/public_html/_admin_tools/admin_create_user.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 4
+[05-Feb-2026 16:48:24 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/location/4/apiconfig.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 5
+[05-Feb-2026 16:48:24 Asia/Tehran] PHP Warning:  require(/home/esmerd/public_html/location/4/apiconfig.php): Failed to open stream: No such file or directory in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 5
+[05-Feb-2026 16:48:24 Asia/Tehran] PHP Fatal error:  Uncaught Error: Failed opening required '/home/esmerd/public_html/location/4/apiconfig.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/esmerd/public_html/_admin_tools/admin_create_user.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/esmerd/public_html/_admin_tools/admin_create_user.php on line 5
+[05-Feb-2026 16:54:13 Asia/Tehran] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'DB_USER'@'localhost' (using password: YES) in /home/esmerd/public_html/location/4/api/config.php:16
+Stack trace:
+#0 /home/esmerd/public_html/location/4/api/config.php(16): PDO->__construct()
+#1 /home/esmerd/public_html/_admin_tools/admin_create_user.php(27): db()
+#2 {main}
+  thrown in /home/esmerd/public_html/location/4/api/config.php on line 16

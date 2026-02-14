@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>نقشه</title>
+
+  <!-- Neshan OpenLayers -->
+  <link rel="stylesheet" href="https://static.neshan.org/sdk/openlayers/5.3.0/ol.css" />
+  <script src="https://static.neshan.org/sdk/openlayers/5.3.0/ol.js"></script>
+
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
+    #map {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #f2f2f2;
+      z-index: 0;
+    }
+
+    .topBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      z-index: 10000;
+      background: rgba(255,255,255,.92);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      backdrop-filter: blur(8px);
+    }
+    .searchRow { display: flex; gap: 8px; align-items: center; }
+    .input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.12);
+      outline: none;
+      font-size: 14px;
+      background: #fff;
+    }
+    .btn {
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .btnLite {
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      color: #111;
+      cursor: pointer;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .status { margin-top: 8px; font-size: 13px; color: #444; }
+
+    /* Bottom sheet */
+    .sheet{
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      background: rgba(255,255,255,.98);
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 18px;
+      box-shadow: 0 12px 32px rgba(0,0,0,.18);
+      z-index: 9999;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow: hidden;
+
+      touch-action: pan-y;
+
+      /* ✅ default safe value so it won't stick open on first paint */
+      --sheet-y: 999px;
+
+      transform: translateY(var(--sheet-y));
+      transition: transform .18s ease;
+    }
+
+    .sheet-handle{
+      padding: 10px 12px 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
+    .sheet-grip{
+      width: 42px; height: 5px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.18);
+      margin-inline-start: 4px;
+    }
+    .sheet-title{ font-weight: 800; font-size: 14px; color: #111; }
+
+    .sheet-content{
+      padding: 10px 12px 12px;
+      max-height: 60vh;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sheet-actions{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .sheet-link{
+      text-decoration:none;
+      font-size:13px;
+      color:#111;
+      border:1px solid rgba(0,0,0,.12);
+      padding:8px 10px;
+      border-radius:12px;
+      background:#fff;
+    }
+    .sheet-btn{
+      font-size:13px;
+      border:1px solid rgba(0,0,0,.12);
+      padding:8px 10px;
+      border-radius:12px;
+      background:#111;
+      color:#fff;
+      cursor:pointer;
+    }
+
+    /* ✅ One-line nice row: customer | phone */
+    .sheet-item{
+      border:1px solid rgba(0,0,0,.10);
+      border-radius:16px;
+      padding:12px;
+      margin-top:10px;
+      background:#fff;
+    }
+    .sheet-row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:nowrap; /* ✅ keep in one line */
+    }
+    .sheet-customer-btn{
+      flex: 1;
+      min-width: 0;
+      text-align: right;
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: 14px;
+      padding: 12px 12px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 900;
+      color: #111;
+      line-height: 1.2;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .sheet-phone-pill{
+      flex: 0 0 auto;
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: 14px;
+      padding: 12px 12px;
+      background:#fff;
+      min-width: 140px;
+      text-align: center;
+    }
+    .sheet-phone{
+      display:inline-block;
+      font-size: 16px;
+      font-weight: 900;
+      color:#0b5;
+      text-decoration:none;
+      letter-spacing: .2px;
+      white-space: nowrap;
+    }
+    .sheet-empty{
+      color:#666;
+      font-size:13px;
+      padding:8px 2px;
+    }
+
+    /* Selected customer bar */
+    .selectedCustomer{
+      margin-top: 8px;
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: 16px;
+      padding: 10px 12px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.10);
+    }
+    .sc-row{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: nowrap;
+    }
+    .sc-name{
+      flex: 1;
+      min-width: 0;
+      font-size: 15px;
+      font-weight: 900;
+      color: #111;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .sc-phone{
+      flex: 0 0 auto;
+      font-size: 15px;
+      font-weight: 900;
+      color: #0b5;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: 14px;
+      padding: 8px 10px;
+      background: #fff;
+    }
+    .sc-addr{
+      margin-top: 6px;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <div class="topBar">
+    <div class="searchRow">
+      <input id="address" class="input" placeholder="آدرس را وارد کنید..." />
+      <button id="btnSearch" class="btn">جستجو</button>
+      <button id="btnMyLocation" class="btnLite">لوکیشن من</button>
+    </div>
+
+    <div id="selectedCustomer" class="selectedCustomer" style="display:none;">
+      <div class="sc-row">
+        <div id="scName" class="sc-name"></div>
+        <a id="scPhone" class="sc-phone" href="#" aria-label="شماره تماس"></a>
+      </div>
+      <div id="scAddr" class="sc-addr"></div>
+    </div>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <!-- Bottom Sheet -->
+  <div id="addrSheet" class="sheet" aria-hidden="false">
+    <div id="addrSheetHandle" class="sheet-handle" title="کشیدن برای باز/بسته">
+      <div class="sheet-grip"></div>
+      <div class="sheet-title">مشتری‌ها</div>
+    </div>
+
+    <div class="sheet-content">
+      <div class="sheet-actions">
+        <a class="sheet-link" href="addresses.html">مدیریت مشتری‌ها</a>
+        <button id="addrSheetRefresh" class="sheet-btn">بروزرسانی</button>
+      </div>
+      <div id="addrSheetList" class="sheet-list"></div>
+      <div id="addrSheetEmpty" class="sheet-empty" style="display:none;">موردی ثبت نشده.</div>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

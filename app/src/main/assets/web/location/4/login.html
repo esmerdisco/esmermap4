@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ورود</title>
+  <style>
+    body{
+      font-family: system-ui;
+      background:#f6f7f9;
+      margin:0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+    .card{
+      background:#fff;
+      padding:20px;
+      border-radius:14px;
+      width:100%;
+      max-width:320px;
+      border:1px solid #e3e7ee;
+    }
+    h1{font-size:18px;margin-bottom:16px;}
+    input{
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      font-size:15px;
+      border-radius:10px;
+      border:1px solid #d8dde5;
+    }
+    button{
+      width:100%;
+      padding:12px;
+      font-size:15px;
+      border-radius:10px;
+      border:none;
+      background:#111;
+      color:#fff;
+    }
+    .msg{
+      margin-top:10px;
+      font-size:13px;
+      color:#c00;
+      min-height:18px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>ورود به سیستم</h1>
+  <input id="username" placeholder="نام کاربری">
+  <input id="password" type="password" placeholder="رمز عبور">
+  <button id="btnLogin">ورود</button>
+  <div id="msg" class="msg"></div>
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>
