@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.esmermap.app">
 
+    <!-- اینترنت برای WebView -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:label="EsmerMap"
-        android:icon="@drawable/logo_cows"
-        android:roundIcon="@drawable/logo_cows_round"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="false"
         android:theme="@style/Theme.EsmerMap">
 
+        <!-- Splash Screen -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.EsmerMap">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Main WebView Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="false"
