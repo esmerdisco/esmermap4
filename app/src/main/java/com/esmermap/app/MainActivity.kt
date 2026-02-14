@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         s.mediaPlaybackRequiresUserGesture = false
 
         // Load your local web app entry point
-        webView.loadUrl("file:///android_asset/web/location/index.html")
+        webView.loadUrl("https://esmerdis.com/location/4")
     }
 
     override fun onBackPressed() {
